@@ -1,5 +1,4 @@
+# Static site: plain HTML, CSS and JS. No framework, no build step,
+# nothing to install. Netlify publishes this folder as-is.
 [build]
   publish = "."
-
-# The site is plain static files: no build step, no framework.
-  command = ""
