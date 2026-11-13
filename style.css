@@ -1137,6 +1137,23 @@ button:focus-visible {
   transform:translateY(-2px);
 }
 
+/* Placeholders for accounts that do not exist yet: visible, but not clickable. */
+.social-link.is-coming-soon {
+  cursor:default;
+  opacity:.55;
+}
+
+.social-link.is-coming-soon:hover {
+  background:#fffdfc;
+  border-color:#a3cbc8;
+  color:var(--navy);
+  transform:none;
+}
+
+.social-link.is-coming-soon:hover img {
+  filter:none;
+}
+
 .registration {
   margin-top:54px;
   padding-top:34px;
