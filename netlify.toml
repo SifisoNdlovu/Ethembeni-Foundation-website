@@ -1,0 +1,5 @@
+[build]
+  publish = "."
+
+# The site is plain static files: no build step, no framework.
+  command = ""

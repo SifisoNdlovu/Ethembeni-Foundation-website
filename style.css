@@ -4,6 +4,7 @@
    ========================================================================== */
 
 :root {
+  color-scheme:light;
   --navy:#0f2a52;
   --navy-deep:#081a33;
   --navy-mid:#123a63;
@@ -1097,7 +1098,7 @@ button:focus-visible {
 
 .social-list {
   display:flex;
-  flex-wrap:nowrap;
+  flex-wrap:wrap;
   justify-content:center;
   align-items:center;
   gap:12px;
@@ -1109,6 +1110,7 @@ button:focus-visible {
 .social-link {
   display:grid;
   place-items:center;
+  flex:none;
   width:44px;
   height:44px;
   border-radius:50%;
@@ -1118,10 +1120,14 @@ button:focus-visible {
   transition:.25s;
 }
 
-.social-link svg {
+.social-link img {
+  display:block;
   width:20px;
   height:20px;
-  fill:currentColor;
+}
+
+.social-link:hover img {
+  filter:brightness(0) invert(1);
 }
 
 .social-link:hover {

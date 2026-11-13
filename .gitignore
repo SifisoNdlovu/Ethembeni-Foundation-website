@@ -1,0 +1,8 @@
+# Local scratch files and editor state must never be published
+_diag.*
+_shot.*
+_*.html
+_*.py
+.idea/
+.DS_Store
+Thumbs.db
