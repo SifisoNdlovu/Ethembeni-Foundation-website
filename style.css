@@ -1252,7 +1252,9 @@ footer {
   text-decoration:none;
 }
 
-.reveal {
+/* Only hide revealed content when JavaScript is running: without the observer
+   to un-hide it, everything would stay invisible. */
+.js .reveal {
   opacity:0;
   transform:translateY(22px);
   transition:opacity .7s ease,transform .7s ease;

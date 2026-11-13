@@ -1,17 +1,40 @@
+/* Scroll-reveal. Runs first and fails safe: if this browser has no
+   IntersectionObserver, everything is shown immediately instead of staying
+   hidden behind the .js .reveal rule in the stylesheet. */
+const revealItems = document.querySelectorAll('.reveal');
+
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealItems.forEach(element => observer.observe(element));
+} else {
+  revealItems.forEach(element => element.classList.add('visible'));
+}
+
+/* Mobile menu. */
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.primary-nav');
 const navLinks = document.querySelectorAll('.primary-nav a');
 const header = document.querySelector('.site-header');
 
-menuButton.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('open');
-  menuButton.setAttribute('aria-expanded', String(isOpen));
-});
+if (menuButton && nav) {
+  menuButton.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded', String(isOpen));
+  });
 
-navLinks.forEach(link => link.addEventListener('click', () => {
-  nav.classList.remove('open');
-  menuButton.setAttribute('aria-expanded', 'false');
-}));
+  navLinks.forEach(link => link.addEventListener('click', () => {
+    nav.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+  }));
+}
 
 /* Highlight the nav link for the section currently in view. */
 const sections = Array.from(document.querySelectorAll('main section[id]'))
@@ -30,7 +53,7 @@ const setActiveLink = (id) => {
 };
 
 const updateActiveSection = () => {
-  if (!sections.length) return;
+  if (!sections.length || !header) return;
 
   const threshold = header.offsetHeight + 24;
   let current = sections[0];
@@ -63,17 +86,11 @@ window.addEventListener('scroll', onScroll, { passive: true });
 window.addEventListener('resize', onScroll);
 updateActiveSection();
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
-document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
-document.getElementById('year').textContent = new Date().getFullYear();
+/* Footer copyright year. */
+const year = document.getElementById('year');
+if (year) {
+  year.textContent = new Date().getFullYear();
+}
 
 /* "Back to top" / brand links: scroll to the very top of the page. */
 document.querySelectorAll('a[href="#top"]').forEach(link => {
